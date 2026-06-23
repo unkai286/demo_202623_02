@@ -31,6 +31,7 @@ def show_messages(messages: list[Any]) -> None:
                         )
             else:
                 with st.chat_message(message.type):
+                    st.markdown("**🧠 AI解説**")
                     st.write(message.content)
 
                     with open(c.output_md, "w", encoding="utf-8") as f:
@@ -46,9 +47,8 @@ def show_messages(messages: list[Any]) -> None:
 
         elif isinstance(message, ToolMessage):
             with st.chat_message(message.type):
-                with st.expander("作成されたプロンプト"):
-                    # st.write("ツールの実行結果")
-                    st.info(message.content)
+                st.markdown("**🔎 検索結果**")
+                st.info(message.content)
 
         else:
             raise ValueError(f"Unknown message type: {type(message)}")
