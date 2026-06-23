@@ -132,12 +132,11 @@ class HumanInTheLoopAgent:
             tool = tools[tool_call["name"]]
             result = tool.invoke(tool_call["args"])
             new_messages.append(
-                {
-                    "role": "tool",
-                    "name": tool_call["name"],
-                    "content": result,
-                    "tool_call_id": tool_call["id"],
-                }
+                ToolMessage(
+                    content=result,
+                    name=tool_call["name"],
+                    tool_call_id=tool_call["id"],
+                )
             )
         return {"messages": new_messages}
 
